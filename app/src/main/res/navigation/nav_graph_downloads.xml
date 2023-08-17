@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_downloads"
+    app:startDestination="@id/videoDownloaderFragment">
+
+    <fragment
+        android:id="@+id/videoDownloaderFragment"
+        android:name="com.zero.mp3ytdownloader.view.fragment.VideoDownloaderFragment"
+        android:label="VideoDownloaderFragment"
+        tools:layout="@layout/fragment_video_downloader">
+        <argument
+            android:name="details"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_videoDownloaderFragment_to_downloadFailureFragment"
+            app:destination="@id/downloadFailureFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph_downloads"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+        <action
+            android:id="@+id/action_videoDownloaderFragment_to_moveToLocationFragment"
+            app:destination="@id/moveToLocationFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph_downloads"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/moveToLocationFragment"
+        android:name="com.zero.mp3ytdownloader.view.fragment.MoveToLocationFragment"
+        android:label="MoveToLocationFragment"
+        tools:layout="@layout/fragment_move_to_location">
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="false"/>
+        <argument
+            android:name="path"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_moveToLocationFragment_to_downloadFailureFragment"
+            app:destination="@id/downloadFailureFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph_downloads"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+        <action
+            android:id="@+id/action_moveToLocationFragment_to_downloadSuccessFragment"
+            app:destination="@id/downloadSuccessFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph_downloads"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/downloadSuccessFragment"
+        android:name="com.zero.mp3ytdownloader.view.fragment.DownloadSuccessFragment"
+        android:label="DownloadSuccessFragment"
+        tools:layout="@layout/fragment_download_success">
+    </fragment>
+
+    <fragment
+        android:id="@+id/downloadFailureFragment"
+        android:name="com.zero.mp3ytdownloader.view.fragment.DownloadFailureFragment"
+        android:label="DownloadFailureFragment"
+        tools:layout="@layout/fragment_download_failure">
+        <argument
+            android:name="error"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="false"/>
+    </fragment>
+
+</navigation>

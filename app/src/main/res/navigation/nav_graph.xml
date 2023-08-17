@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.zero.mp3ytdownloader.view.fragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_videoDownloaderFragment"
+            app:destination="@id/videoDownloaderContainerFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/videoDownloaderContainerFragment"
+        android:name="com.zero.mp3ytdownloader.view.fragment.VideoDownloaderContainerFragment"
+        android:label="VideoDownloaderContainerFragment"
+        tools:layout="@layout/fragment_video_downloader_container">
+        <argument
+            android:name="details"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
+
+</navigation>
