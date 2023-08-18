@@ -10,6 +10,10 @@
         android:name="com.zero.mp3ytdownloader.view.fragment.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue=""/>
         <action
             android:id="@+id/action_homeFragment_to_videoDownloaderFragment"
             app:destination="@id/videoDownloaderContainerFragment"

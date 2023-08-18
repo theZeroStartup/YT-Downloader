@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.zero.mp3ytdownloader.R
 import com.zero.mp3ytdownloader.base.view.BaseFragment
 import com.zero.mp3ytdownloader.databinding.FragmentHomeBinding
@@ -28,10 +29,14 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
 
+    private val args: HomeFragmentArgs by navArgs()
+    private var url = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProvider(this@HomeFragment)[HomeViewModel::class.java]
         viewModel = homeViewModel
+        url = args.url
 
         lifecycleScope.launch {
             attachObservers()
@@ -52,6 +57,14 @@ class HomeFragment : BaseFragment() {
 
         binding.tvDestination.text = if (getDestinationFile() == null) "..." else getDestinationFile()?.name
         viewActionListeners()
+        startDownloadIfAvailable()
+    }
+
+    private fun startDownloadIfAvailable() {
+        if (url.isNotEmpty()) {
+            binding.etLink.setText(url.trim())
+            binding.rlDownload.performClick()
+        }
     }
 
     private fun attachObservers() {
@@ -85,6 +98,7 @@ class HomeFragment : BaseFragment() {
             if (isValidInput(link)){
                 toggleViewState(false)
                 homeViewModel.grabVideoDetails(link)
+                url = ""
             }
             else {
                 showToast("Fill all fields with valid input")
