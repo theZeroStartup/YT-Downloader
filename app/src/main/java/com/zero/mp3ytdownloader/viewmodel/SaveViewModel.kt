@@ -1,6 +1,7 @@
 package com.zero.mp3ytdownloader.viewmodel
 
 import android.app.Application
+import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
@@ -22,8 +23,10 @@ class SaveViewModel @Inject constructor(
     val onSavePercentageChange = MutableLiveData<Int>()
 
     val onDownloadFailed = MutableLiveData<String>()
-    val onDownloadCompleted = MutableLiveData<String>()
+    val onDownloadCompleted = MutableLiveData<Pair<Uri?, String?>>()
+
     private var isSaveFailed = false
+    private var savedFileUri: Uri? = null
 
     fun moveFile(activity: FragmentActivity, inputPath: String, inputFile: String, documentFile: DocumentFile?) {
         if (documentFile != null) {
@@ -47,6 +50,7 @@ class SaveViewModel @Inject constructor(
 
                     onSavePercentageChange.postValue(percent.toInt())
                 }
+                savedFileUri = destinationFile?.uri
             } catch (e: FileNotFoundException) {
                 isSaveFailed = true
                 onDownloadFailed.postValue(e.localizedMessage)
@@ -61,19 +65,21 @@ class SaveViewModel @Inject constructor(
                 // delete the original file
                 File(inputPath + inputFile).delete()
 
-                if (!isSaveFailed)
-                    onDownloadCompleted.postValue(documentFile.name)
+                if (!isSaveFailed) {
+                    onDownloadCompleted.postValue(Pair(savedFileUri, documentFile.name))
+                }
+                isSaveFailed = false
             }
         }
-        else onDownloadFailed.postValue("Destination not found")
+        else onDownloadFailed.postValue("Save destination not found")
     }
 
     fun navigateToFailureFragmentFromSaveFragment(error: String) {
         navigate(MoveToLocationFragmentDirections.actionMoveToLocationFragmentToDownloadFailureFragment(error))
     }
 
-    fun navigateToSuccessFragment() {
-        navigate(MoveToLocationFragmentDirections.actionMoveToLocationFragmentToDownloadSuccessFragment())
+    fun navigateToSuccessFragment(uri: Uri?) {
+        navigate(MoveToLocationFragmentDirections.actionMoveToLocationFragmentToDownloadSuccessFragment(uri?.toString()))
     }
 
 }

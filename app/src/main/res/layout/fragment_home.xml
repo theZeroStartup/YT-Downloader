@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:layout_marginTop="14dp"
+        android:visibility="gone"
         android:textColor="@color/black_heading"
         android:text="@string/destination_folder"
         android:fontFamily="@font/plus_jakarta_sans_semibold"/>
@@ -67,6 +68,7 @@
         android:maxLines="1"
         android:ellipsize="start"
         android:background="@drawable/bg_selector_edittext"
+        android:visibility="gone"
         android:textSize="14sp"
         android:textColor="@color/black_heading"
         android:text="@string/default_download_location"
@@ -83,35 +85,73 @@
         android:drawablePadding="6dp"
         android:drawableStart="@drawable/img_info"
         android:textColor="@color/grey_regular"
-        android:text="@string/where_you_want_to_save_the_mp3"
+        android:text="@string/downloaded_file_will_be_saved_to_downloads_folder"
         android:fontFamily="@font/plus_jakarta_sans_medium"/>
 
-    <RelativeLayout
-        android:id="@+id/rlDownload"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_selector_button">
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/tvDownload"
-            android:indeterminateDrawable="@drawable/bg_gradient_progress"
-            android:layout_marginEnd="6dp"
-            android:indeterminate="true"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvDownload"
-            android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="24dp">
+
+        <RelativeLayout
+            android:id="@+id/rlDownload"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/download"
-            android:textAllCaps="false"
-            android:layout_centerInParent="true"
-            android:paddingHorizontal="5dp"
-            android:fontFamily="@font/plus_jakarta_sans_bold"
-            android:textSize="14sp"
-            android:textColor="@color/white"/>
-    </RelativeLayout>
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_selector_button">
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tvDownload"
+                android:indeterminateDrawable="@drawable/bg_gradient_progress"
+                android:layout_marginHorizontal="6dp"
+                android:indeterminate="true"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/download_audio"
+                android:textAllCaps="false"
+                android:layout_centerInParent="true"
+                android:paddingHorizontal="5dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlDownloadVideo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_selector_button">
+            <ProgressBar
+                android:id="@+id/progressVideo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tvDownloadVideo"
+                android:indeterminateDrawable="@drawable/bg_gradient_progress"
+                android:layout_marginHorizontal="6dp"
+                android:indeterminate="true"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDownloadVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/download_video"
+                android:textAllCaps="false"
+                android:layout_centerInParent="true"
+                android:paddingHorizontal="5dp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

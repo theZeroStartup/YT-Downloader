@@ -13,5 +13,5 @@ data class MediaDetails(
     var url: String? = null,
     @SerializedName("title")
     var title: String? = null,
-
-    )
+    var isAudioOnly: Boolean? = false
+)

@@ -59,8 +59,8 @@ class MoveToLocationFragment : BaseFragment() {
         }
 
         downloaderViewModel.onDownloadCompleted.observe(this) {
-            showToast("File saved to ${it.ifEmpty { getDirectory() }}")
-            downloaderViewModel.navigateToSuccessFragment()
+            showToast("File saved to ${it.second?.ifEmpty { getDirectory() }}")
+            downloaderViewModel.navigateToSuccessFragment(it.first)
         }
     }
 }

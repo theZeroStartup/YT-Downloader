@@ -93,21 +93,29 @@ class HomeFragment : BaseFragment() {
 
         binding.ivClearText.setOnClickListener { binding.etLink.text?.clear() }
 
+        binding.rlDownloadVideo.setOnClickListener {
+            grabDetailsOfUrl(false)
+        }
+
         binding.rlDownload.setOnClickListener {
-            val link = binding.etLink.text.toString().trim()
-            if (isValidInput(link)){
-                toggleViewState(false)
-                homeViewModel.grabVideoDetails(link)
-                url = ""
-            }
-            else {
-                showToast("Fill all fields with valid input")
-                toggleViewState(true)
-            }
+            grabDetailsOfUrl(true)
         }
 
         binding.tvDestination.setOnClickListener {
             showDirectoryPicker()
+        }
+    }
+
+    private fun grabDetailsOfUrl(isOnlyAudio: Boolean) {
+        val link = binding.etLink.text.toString().trim()
+        if (isValidInput(link)){
+            toggleViewState(false)
+            homeViewModel.grabVideoDetails(link, isOnlyAudio)
+            url = ""
+        }
+        else {
+            showToast("Fill all fields with valid input")
+            toggleViewState(true)
         }
     }
 
@@ -141,12 +149,14 @@ class HomeFragment : BaseFragment() {
         binding.etLink.isEnabled = isEnabled
         binding.tvDestination.isEnabled = isEnabled
         binding.rlDownload.isEnabled = isEnabled
+        binding.rlDownloadVideo.isEnabled = isEnabled
         binding.ivClearText.isEnabled = isEnabled
         binding.rlLinkRoot.isEnabled = isEnabled
 
         binding.etLink.isClickable = isEnabled
         binding.tvDestination.isClickable = isEnabled
         binding.rlDownload.isClickable = isEnabled
+        binding.rlDownloadVideo.isClickable = isEnabled
         binding.ivClearText.isClickable = isEnabled
 
         binding.tvDownload.text =
@@ -170,7 +180,31 @@ class HomeFragment : BaseFragment() {
                     0, 0, 0)
 
                 binding.progress.visibility = View.GONE
-                getString(R.string.download)
+                getString(R.string.download_audio)
+            }
+
+        binding.tvDownloadVideo.text =
+            if (!isEnabled) {
+                binding.etLink.setTextColor(ResourcesCompat.getColor(resources, R.color.grey_disabled, null))
+                binding.tvDestination.setTextColor(ResourcesCompat.getColor(resources, R.color.grey_disabled, null))
+                binding.etLink.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.img_link_disabled,
+                    0, 0, 0)
+                binding.tvDestination.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.img_destination_folder_disabled,
+                    0, 0, 0)
+
+                binding.progressVideo.visibility = View.VISIBLE
+                getString(R.string.grabbing_video)
+            }
+            else {
+                binding.etLink.setTextColor(ResourcesCompat.getColor(resources, R.color.black_heading, null))
+                binding.tvDestination.setTextColor(ResourcesCompat.getColor(resources, R.color.black_heading, null))
+                binding.etLink.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.img_link_enabled,
+                    0, 0, 0)
+                binding.tvDestination.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.img_destination_folder_enabled,
+                    0, 0, 0)
+
+                binding.progressVideo.visibility = View.GONE
+                getString(R.string.download_video)
             }
     }
 
@@ -180,7 +214,7 @@ class HomeFragment : BaseFragment() {
         val isValid: Boolean = youtubePattern.matcher(link).matches()
         val destination = binding.tvDestination.text.toString()
 
-        return link.isNotEmpty() &&
-                destination.replace("...", "").trim().isNotEmpty() && isValid
+        return link.isNotEmpty() && isValid
+//                && destination.replace("...", "").trim().isNotEmpty()
     }
 }

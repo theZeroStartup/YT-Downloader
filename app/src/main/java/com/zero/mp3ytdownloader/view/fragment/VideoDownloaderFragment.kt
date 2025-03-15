@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -15,6 +16,7 @@ import com.zero.mp3ytdownloader.model.MediaDetails
 import com.zero.mp3ytdownloader.viewmodel.DownloaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class VideoDownloaderFragment : BaseFragment() {
@@ -57,7 +59,8 @@ class VideoDownloaderFragment : BaseFragment() {
     private var fileName = ""
     private fun startDownload() {
         if (this::mediaDetails.isInitialized) {
-            createFile(mediaDetails.title.toString(), ".mp3") { file, fileName ->
+            val extension = if (mediaDetails.isAudioOnly == true) ".mp3" else ".mp4"
+            createFile(mediaDetails.title.toString(), extension) { file, fileName ->
                 this.fileName = fileName
                 downloaderViewModel.download(mediaDetails.url.toString(), file)
             }
@@ -75,7 +78,12 @@ class VideoDownloaderFragment : BaseFragment() {
         }
 
         downloaderViewModel.onDownloadCompleted.observe(this) {
-            downloaderViewModel.navigateToConverterFragment(fileName.ifEmpty { mediaDetails.title.toString() }, it)
+            downloaderViewModel.navigateToSuccessFragment(it.path.toString())
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        downloaderViewModel.cancelDownload()
     }
 }

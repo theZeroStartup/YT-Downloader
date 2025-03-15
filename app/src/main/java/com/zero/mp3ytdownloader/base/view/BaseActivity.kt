@@ -38,7 +38,7 @@ abstract class BaseActivity: AppCompatActivity() {
 
             val fileName = if (num == 0) "$title$extension" else "$title ($num)$extension"
             val myFile = File(getDirectory(), fileName)
-            if (isFileNotExistAlready(fileName, extension)) {
+            if (!myFile.exists()) {
                 myFile.createNewFile()
                 val name = fileName.removeSuffix(extension)
                 onFileCreated.invoke(myFile, name)
@@ -61,7 +61,7 @@ abstract class BaseActivity: AppCompatActivity() {
 
             val fileName = if (n == 0) "$title$extension" else "$title ($n)$extension"
             val myFile = File(getDirectory(), fileName)
-            if (isFileNotExistAlready(fileName, extension)) {
+            if (isFileNotExistAlready(fileName)) {
                 myFile.createNewFile()
                 val name = fileName.removeSuffix(extension)
                 onFileCreated.invoke(myFile, name)
@@ -75,18 +75,20 @@ abstract class BaseActivity: AppCompatActivity() {
         }
     }
 
-    private fun isFileNotExistAlready(fileName: String, extension: String): Boolean {
-        return if (extension == ".mp3") {
-            val documentFile = getDestinationFile()
-            return documentFile?.findFile("_".plus(fileName)) == null
-        }
-        else extension == ".mp4"
+    private fun isFileNotExistAlready(fileName: String): Boolean {
+        val documentFile = getDestinationFile()
+        return documentFile?.findFile(fileName) == null
     }
 
     fun getDirectory(): File? {
         var directory: File?
-        directory = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-        if (directory?.exists() == false) {
+        directory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/YT")
+        } else {
+            File(Environment.getExternalStorageDirectory().toString() + "/${Environment.DIRECTORY_DOWNLOADS}/YT")
+        }
+
+        if (!directory.exists()) {
             // Make it, if it doesn't exit
             val success = directory.mkdirs()
             if (!success) {

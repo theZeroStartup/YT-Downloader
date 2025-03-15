@@ -1,7 +1,7 @@
 import yt_dlp as yt_dlp
 
-def client(video_url, download=False):
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+def getVideoDetails(video_url, download=False):
+    with yt_dlp.YoutubeDL(ydl_video_opts) as ydl:
         try:
             info = ydl.extract_info(video_url, download=download)
             return info
@@ -9,14 +9,13 @@ def client(video_url, download=False):
             print('Not working..')
             return None
 
-ydl_opts = {
-        # Parameters ensure that the high-quality audio tracks are returned as priority #1.
-        # However, we'll not be using those, as we're looking for best quality video + audio
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'noplaylist': True,
+ydl_video_opts = {
+    'format': 'bv/bestvideo',  # Best available video format (no audio)
+    'n_threads': 10,
+    'http_chunk_size': "5M",
+    'geo_bypass': True,
+    'force_ipv4': True,
+    'verbose': True,
+    'noplaylist': True,
+    'quiet': True,  # Suppresses unnecessary output
 }

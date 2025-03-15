@@ -35,6 +35,9 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right" />
+        <action
+            android:id="@+id/action_videoDownloaderFragment_to_downloadSuccessFragment"
+            app:destination="@id/downloadSuccessFragment" />
     </fragment>
 
     <fragment
@@ -79,6 +82,11 @@
         android:name="com.zero.mp3ytdownloader.view.fragment.DownloadSuccessFragment"
         android:label="DownloadSuccessFragment"
         tools:layout="@layout/fragment_download_success">
+        <argument
+            android:name="uri"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="true"/>
     </fragment>
 
     <fragment

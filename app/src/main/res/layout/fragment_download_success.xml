@@ -51,8 +51,25 @@
         android:fontFamily="@font/plus_jakarta_sans_medium"
         app:layout_constraintTop_toBottomOf="@id/downloadProgress"
         app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:padding="10dp"
+        android:drawableTint="@color/grey_regular"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/baseline_arrow_back_ios_24"
+        android:textColor="@color/grey_regular"
+        android:text="@string/back"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/plus_jakarta_sans_medium"
+        app:layout_constraintBottom_toTopOf="@id/rlOpenFile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <RelativeLayout
-        android:id="@+id/rlDownload"
+        android:id="@+id/rlOpenFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,15 +82,15 @@
             android:layout_height="24dp"
             android:visibility="gone"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/tvDownload"
+            android:layout_toStartOf="@id/tvOpenFile"
             android:indeterminateDrawable="@drawable/bg_gradient_progress"
             android:layout_marginEnd="6dp"
             android:indeterminate="true"/>
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvDownload"
+            android:id="@+id/tvOpenFile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/download_another_mp3"
+            android:text="@string/open_downloaded_file"
             android:textAllCaps="false"
             android:layout_centerInParent="true"
             android:paddingHorizontal="5dp"

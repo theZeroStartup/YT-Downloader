@@ -16,6 +16,7 @@ import com.zero.mp3ytdownloader.R
 import com.zero.mp3ytdownloader.base.view.BaseFragment
 import com.zero.mp3ytdownloader.databinding.FragmentVideoDownloaderContainerBinding
 import com.zero.mp3ytdownloader.model.MediaDetails
+import com.zero.mp3ytdownloader.util.CommonUtils.inReadableFormat
 import com.zero.mp3ytdownloader.viewmodel.DownloaderContainerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -73,25 +74,4 @@ class VideoDownloaderContainerFragment : BaseFragment() {
     private fun getHostFragment(): Fragment? {
         return childFragmentManager.findFragmentById(R.id.downloadFragmentContainer)
     }
-}
-
-private fun String?.inReadableFormat(): String {
-    val number = this?.toDouble()
-    if (number != null) {
-        when {
-            number >= 1000000000 -> {
-                return String.format("%.2fB", number / 1000000000.0);
-            }
-            number >= 1000000 -> {
-                return String.format("%.2fM", number / 1000000.0);
-            }
-            number >= 100000 -> {
-                return String.format("%.2fL", number / 100000.0);
-            }
-            number >= 1000 -> {
-                return String.format("%.2fK", number / 1000.0);
-            }
-        }
-    }
-    return this.toString()
 }

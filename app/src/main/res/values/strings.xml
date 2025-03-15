@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">MP3 Downloader</string>
+    <string name="app_name">YT Downloader</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="youtube_link">YouTube Link</string>
     <string name="destination_folder">Destination Folder</string>
-    <string name="where_you_want_to_save_the_mp3">Where you want to save the mp3</string>
+    <string name="where_you_want_to_save_the_mp3">Create/Choose a folder to save your downloaded files, by clicking the above Field</string>
     <string name="download">Download</string>
     <string name="default_download_location">Download/MP3 Downloader</string>
     <string name="link_hint">Paste YouTube link here…</string>
@@ -19,4 +19,9 @@
     <string name="failed">Failed</string>
     <string name="mp3_successfully_saved_into_selected_folder">MP3 successfully saved into selected folder</string>
     <string name="download_another_mp3">Download Another MP3</string>
+    <string name="back">Back to Home</string>
+    <string name="open_downloaded_file">Open downloaded file</string>
+    <string name="downloaded_file_will_be_saved_to_downloads_folder">Downloaded file will be saved to Downloads folder</string>
+    <string name="download_video">Download Video</string>
+    <string name="download_audio">Download Audio</string>
 </resources>
